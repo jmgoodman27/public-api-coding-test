@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        primary: ['SpecialElite' ]
+       }
     },
   },
   plugins: [],
