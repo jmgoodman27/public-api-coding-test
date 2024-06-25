@@ -8,5 +8,12 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+  // Hybrid rendering rules: mix SSR, CSR, and SSG depending on route feature and content
+  routeRules: {
+    // Quote of the day is generated on demand, revalidates in background, cached until API response changes
+    '/': { swr: true },
+    // About page is prerendered at build time
+    '/about': { prerender: true }
   }
 })
