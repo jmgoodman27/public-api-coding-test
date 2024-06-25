@@ -1,4 +1,13 @@
 <script setup>
+/* 
+  All pages will SSR by default. This can be changed in nuxt.config.ts with routeRules
+  https://nuxt.com/docs/guide/concepts/rendering
+*/
+
+useSeoMeta({
+  title: "Quote of the Day",
+  description: "Get your daily inspiration with a quote of the day!",
+});
 </script>
 
 <template>
