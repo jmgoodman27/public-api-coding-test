@@ -1,10 +1,16 @@
 import type { Response, Quote } from "../../utils/types.ts";
 
-const API_URL = `https://zenquotes.io/api/today/`;
+let API_URL;
 const ERROR_TOO_MANY_REQUESTS = 'Too many requests. Wait 30 seconds and try again.';
 const ERROR_NO_QUOTE = 'There is no quote of the day. Check back tomorrow';
 
-export default defineEventHandler(async () => {
+export default defineEventHandler(async (event) => {
+    if (event.path.includes('today')) {
+        API_URL = `https://zenquotes.io/api/today/`;
+    } else {
+        API_URL = `https://zenquotes.io/api/random/`;
+    }
+
     try {
         const response: Response[] = await $fetch(API_URL);
         if (!response || !response[0]) {
