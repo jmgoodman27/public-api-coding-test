@@ -1,6 +1,7 @@
 <script setup>
 /* 
   All pages will SSR by default. This can be changed in nuxt.config.ts with routeRules
+  Individual components can be set to CSR only with the <ClientOnly> tag
   https://nuxt.com/docs/guide/concepts/rendering
 */
 
