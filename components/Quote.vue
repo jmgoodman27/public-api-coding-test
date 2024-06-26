@@ -6,6 +6,8 @@ const props = defineProps<{
     showNewQuoteBtn?: boolean
 }>();
 
+const store = useStore()
+
 const author = ref("");
 const quote = ref("");
 const error = ref("");
@@ -28,7 +30,7 @@ await fetchQuote();
 
 function saveQuote() {
   if (author.value && quote.value) {
-    const isSaved: boolean = saveQuoteToLocalStorage({
+    const isSaved: boolean = store.saveQuote({
       author: author.value,
       quote: quote.value,
     });

@@ -15,5 +15,8 @@ export default defineNuxtConfig({
     '/': { swr: true },
     // About page is prerendered at build time
     '/about': { prerender: true }
-  }
+  },
+  modules: [
+    '@pinia/nuxt',
+  ]
 })
