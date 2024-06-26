@@ -11,5 +11,7 @@ export function saveQuoteToLocalStorage(quote: Quote) {
     if (quote && !quoteExists) {
         savedQuotesArray.push(quote);
         localStorage.setItem("saved-quotes", JSON.stringify(savedQuotesArray));
+        return true;
     }
+    return false;
 }

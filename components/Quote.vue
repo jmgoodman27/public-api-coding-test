@@ -9,7 +9,10 @@ const props = defineProps<{
 const author = ref("");
 const quote = ref("");
 const error = ref("");
-const savedQuote = ref(false);
+
+const isQuoteSaved = ref(false);
+const showSavedFeedback = ref(false);
+const timeoutId = ref(null)
 
 /* 
   server/api directory handles calls to the public api
@@ -25,11 +28,20 @@ await fetchQuote();
 
 function saveQuote() {
   if (author.value && quote.value) {
-    saveQuoteToLocalStorage({
+    const isSaved: boolean = saveQuoteToLocalStorage({
       author: author.value,
       quote: quote.value,
     });
-    savedQuote.value = true;
+    isQuoteSaved.value = isSaved;
+    showSavedFeedback.value = true;
+
+    // Remove success or error message from UI after 3 seconds
+    if (timeoutId.value) {
+      clearTimeout(timeoutId.value)
+    }
+    timeoutId.value = setTimeout(() => {
+      showSavedFeedback.value = false;
+    }, 3000);
   }
 }
 </script>
@@ -39,11 +51,20 @@ function saveQuote() {
     <h1 class="font-primary text-3xl pb-4">{{ props.title }}</h1>
     <p class="pb-2">{{ quote }}</p>
     <p>{{ author }}</p>
-    <div v-if="!error" class="flex gap-4 mt-4 mb-6">
+    <div v-if="!error" class="mt-4 mb-6">
+      <div class="flex gap-4">
         <button v-if="props.showSaveBtn" class="bg-blue-100 hover:bg-blue-200 p-2" @click="saveQuote">Save Quote</button>
         <button v-if="props.showNewQuoteBtn" class="bg-amber-100 hover:bg-amber-200 p-2" @click="fetchQuote">Get new quote</button>
+      </div>
+      <div v-if="showSavedFeedback" class="mt-4">
+        <Success v-if="isQuoteSaved" message="Your quote has been saved!" />
+        <Error v-if="!isQuoteSaved" message="This quote is already saved.">
+          <NuxtLink to="/quotes" class="pl-2 underline">See Your Quotes</NuxtLink>
+        </Error>
+      </div>
     </div>
-    <Success v-if="savedQuote" text="Your quote has been saved!" />
-    <Error v-if="error" :error="error" />
+    <div v-else>
+      <Error v-if="error" :message="error" />
+    </div>
   </div>
 </template>
