@@ -20,6 +20,8 @@ Bonus points for including:
 ### About
 Fetch quote of the day, random quotes, and save your favorite quotes from this small app using the https://zenquotes.io/ API. 
 
+App link here: https://public-api-project.netlify.app/
+
 ### Tech Stack
 Isomorphic app built with:
 - Nuxt
@@ -27,5 +29,22 @@ Isomorphic app built with:
 - Vite
 - TypeScript
 - Tailwind CSS
-- Prismic CMS
 - Netlify
+
+Why Nuxt? Nuxt offers the easiest way to leverage Server Side Rendering (SSR). SSR is a great approach when optimizing for search engines and performance, providing a fast initial page render from the server and then hydrating after on the client side.
+
+This app also demonstrates the ability to do hybrid rendering, allowing each route to render server side, client side only, or even statically generated at build time.
+
+The public API is always fetched from the server (see Nuxt's server / api directory) and that response (or error) is then formatted and sent to the component on either the server or client.
+
+Rather than connecting a database, localStorage is used on the client for simple quote storage.
+
+Nuxt uses Vite under the hood by default. Nuxt also offers auto-imports so that composables and components are available automatically.  
+
+### Get Started with Nuxt
+
+```
+npm run dev
+```
+
+Each commit made to repository automatically deploys new version with netlify.
