@@ -50,10 +50,12 @@ function saveQuote() {
 
 <template>
   <div class="p-4 font-primary">
-    <h1 class="font-primary text-3xl pb-4">{{ props.title }}</h1>
-    <p class="pb-2">{{ quote }}</p>
-    <p>{{ author }}</p>
-    <div v-if="!error" class="mt-4 mb-6">
+    <h1 class="font-primary text-3xl mb-4">{{ props.title }}</h1>
+    <div v-if="quote && author" class="mb-4">
+      <p class="pb-2">{{ quote }}</p>
+      <p>{{ author }}</p>
+    </div>
+    <div v-if="!error" class="mb-4">
       <div class="flex gap-4">
         <button v-if="props.showSaveBtn" class="bg-blue-100 hover:bg-blue-200 p-2" @click="saveQuote">Save Quote</button>
         <button v-if="props.showNewQuoteBtn" class="bg-amber-100 hover:bg-amber-200 p-2" @click="fetchQuote">Get new quote</button>
@@ -65,7 +67,7 @@ function saveQuote() {
         </Error>
       </div>
     </div>
-    <div v-else>
+    <div v-else class="mt-4">
       <Error v-if="error" :message="error" />
     </div>
   </div>
