@@ -5,6 +5,8 @@
   https://nuxt.com/docs/guide/concepts/rendering
 */
 
+import 'lazysizes';
+
 useSeoMeta({
   title: "Quote of the Day",
   description: "Get your daily inspiration with a quote of the day!",
@@ -17,7 +19,17 @@ useSeoMeta({
       <Quote type="today" title="Quote of the day" :showSaveBtn="true" :showNewQuoteBtn="false" />
     </div>
     <div class="md:w-1/2">
-      <img class="w-full" src="../public/typewriter_bg.jpg" sizes="100vw" />
+      <!-- Use lazysizes to automatically set sizes attribute to determine which image size should be used -->
+      <img
+        data-sizes="auto"
+        data-src="/typewriter_img/300.jpg"
+        data-srcset="/typewriter_img/300.jpg 300w,
+        /typewriter_img/600.jpg 600w,
+        /typewriter_img/900.jpg 900w,
+        /typewriter_img/1200.jpg 1200w,
+        /typewriter_img/1500.jpg 1500w"
+        alt="Typewriter"
+        class="lazyload w-full" />
     </div>
   </div>
 </template>
